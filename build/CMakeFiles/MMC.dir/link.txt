@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/MMC.dir/link.d CMakeFiles/MMC.dir/main.cpp.o -o MMC  -Wl,-rpath,/usr/local/lib64 /usr/local/lib64/libhighs.so.1.15.1

@@ -1,0 +1,3 @@
+/home/ksripairojn/MMC/build/CMakeFiles/MMC.dir
+/home/ksripairojn/MMC/build/CMakeFiles/edit_cache.dir
+/home/ksripairojn/MMC/build/CMakeFiles/rebuild_cache.dir
