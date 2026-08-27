@@ -1,7 +1,9 @@
 #include <algorithm>
 #include <cmath>
 #include <highs/Highs.h>
+#include <iomanip>
 #include <iostream>
+#include <random>
 #include <vector>
 using namespace std;
 struct optimizeVariable {
@@ -9,7 +11,7 @@ struct optimizeVariable {
   int treeMonth = 0;
   int noCropMonth_0 = 0;
   int noCropMonth_1 = 0;
-  vector<vector<int>> costMatrix = vector<vector<int>>{5, vector<int>(240, 0)};
+  vector<vector<int>> costMatrix = vector<vector<int>>{5, vector<int>(241, 0)};
   int pondDepth = 0;
   vector<int> areaSize = vector<int>(5);
 };
@@ -72,16 +74,89 @@ int compoundedMoneyProfit(int month, optimizeVariable *ov) {
   }
   return sum;
 }
-int main() {
-  optimizeVariable ovv{
-      .costMatrix = vector<vector<int>>{5, vector<int>(240, 1)},
-      .areaSize = {1, 2, 3, 4, 5},
-  };
+void populateCostMatrix(optimizeVariable *ov) {
+  ov->costMatrix.at(3).at(0) = -30;
+  ov->costMatrix.at(3).at(12) = -20;
 
-  cout << compoundedMoneyProfit(2, &ovv);
-  cout << netWaterProfit(2, &ovv);
-  for (int a = 0; a < 12; a++) {
-    for (int i)
+  for (int y = 0; y < 19; y++) {
+    ov->costMatrix.at(0).at(ov->riceMonth + (y) * 12) = -15;
+    for (int m = ov->riceMonth + (y) * 12 + 1; m < ov->riceMonth + (y) * 12 + 4;
+         m++) {
+      ov->costMatrix.at(0).at(m) = 1;
+    }
+    ov->costMatrix.at(0).at(ov->riceMonth + 4 + (y) * 12) = -45;
+
+    ov->costMatrix.at(1).at(ov->treeMonth + (y) * 12) = -40;
+
+    if (y < 19) {
+      for (int m = ov->treeMonth + (y) * 12 + 1;
+           m < ov->treeMonth + (y) * 12 + 12; m++) {
+        ov->costMatrix.at(1).at(m) = 1;
+      }
+    }
+    ov->costMatrix.at(1).at(ov->treeMonth + 12 + (y) * 12) = 65;
+
+    for (int m = 0; m < 12; m++) {
+      if (m < ov->noCropMonth_0 || m > 1 + ov->noCropMonth_1) {
+        if (m % 2 == (ov->noCropMonth_0 - 2) % 2) {
+          ov->costMatrix.at(2).at(m + 12 * y) = -25;
+        } else {
+
+          ov->costMatrix.at(2).at(m + 12 * y) = 80;
+        }
+      }
+      if (m != 0) {
+        ov->costMatrix.at(4).at(m) = 1;
+      }
+    }
+
+    if (y >= 2) {
+      ov->costMatrix.at(3).at(12 * y) = -30;
+    }
   }
+  ov->costMatrix.at(4).at(0) = 500;
+}
+int main() {
+  for (int a = 0; a < 12; a++) {
+    for (int b = 0; b < 12; b++) {
+      for (int c = 0; c < 12; c++) {
+        for (int d = 0; d < 12; d++) {
+          if ((c - d) % 2 == 0 && c < d) {
+            optimizeVariable ovv{
+                .riceMonth = a,
+                .treeMonth = b,
+                .noCropMonth_0 = c,
+                .noCropMonth_1 = d,
+                .areaSize = {1, 1, 1, 1, 1},
+            };
+            populateCostMatrix(&ovv);
+
+            for (int i = 0; i < 5; i++) {
+              for (int j = 0; j < 24; j++) {
+                cout << ovv.costMatrix[i][j] << setw(6);
+              }
+              cout << "\n";
+            }
+          }
+        }
+      }
+    }
+  }
+  // optimizeVariable ovv{
+  //     .riceMonth = 1,
+  //     .treeMonth = 1,
+  //     .noCropMonth_0 = 2,
+  //     .noCropMonth_1 = 4,
+  //     .areaSize = {1, 1, 1, 1, 1},
+  // };
+  // populateCostMatrix(&ovv);
+  //
+  // for (int i = 0; i < 5; i++) {
+  //   for (int j = 0; j < 12; j++) {
+  //     cout << ovv.costMatrix[i][j] << setw(6);
+  //   }
+  //   cout << "\n";
+  // }
+
   return 0;
 }

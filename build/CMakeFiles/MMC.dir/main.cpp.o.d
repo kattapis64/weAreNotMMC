@@ -246,4 +246,15 @@ CMakeFiles/MMC.dir/main.cpp.o: /home/ksripairojn/MMC/main.cpp \
  /usr/include/c++/15/pstl/glue_numeric_defs.h \
  /usr/local/include/highs/util/HighsDataStack.h \
  /usr/local/include/highs/util/HighsMatrixSlice.h \
- /usr/local/include/highs/util/HighsComponent.h
+ /usr/local/include/highs/util/HighsComponent.h \
+ /usr/include/c++/15/iomanip /usr/include/c++/15/locale \
+ /usr/include/c++/15/bits/locale_facets_nonio.h \
+ /usr/include/c++/15/x86_64-suse-linux/bits/time_members.h \
+ /usr/include/c++/15/x86_64-suse-linux/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/15/bits/codecvt.h \
+ /usr/include/c++/15/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/15/bits/locale_conv.h \
+ /usr/include/c++/15/bits/quoted_string.h /usr/include/c++/15/random \
+ /usr/include/c++/15/bits/random.h \
+ /usr/include/c++/15/x86_64-suse-linux/bits/opt_random.h \
+ /usr/include/c++/15/bits/random.tcc
