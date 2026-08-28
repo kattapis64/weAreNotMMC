@@ -70,7 +70,7 @@ vector<vector<double>> costMatrix(const optimizeVariable &ov) {
       C[0][rs] = -15;
       // *  ระหว่างเดือน set เป็น 1 สำหรับให้บอกว่ามีการใช้น้ำ
       for (int m = rs + 1; m < std::min(rs + 4, MONTHS); m++)
-        C[0][m] = 1;
+        C[0][m] = 0.001;
       // * เช็คไม่ให้เกิน vector bound แล้วใส่ค่าตอบแทนที่ได้
       if (rs + 4 < MONTHS)
         C[0][rs + 4] = 45;
@@ -82,7 +82,7 @@ vector<vector<double>> costMatrix(const optimizeVariable &ov) {
       C[1][ts] = -40;
       // *  ระหว่างเดือน set เป็น 1 สำหรับให้บอกว่ามีการใช้น้ำ
       for (int m = ts + 1; m < std::min(ts + 12, MONTHS); m++)
-        C[1][m] = 1;
+        C[1][m] = 0.001;
       // * เช็คไม่ให้เกิน vector bound แล้วใส่ค่าตอบแทนที่ได้
       if (ts + 12 < MONTHS)
         C[1][ts + 12] = 65;
