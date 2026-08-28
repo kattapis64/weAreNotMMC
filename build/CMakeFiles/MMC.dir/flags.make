@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/local/include/highs/lp_data -isystem /usr/local/include/highs
+CXX_INCLUDES = -isystem /usr/local/include/highs
 
 CXX_FLAGS = -std=gnu++17 -fPIE -Wno-invalid-offsetof
 

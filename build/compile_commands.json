@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/ksripairojn/MMC/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/include/highs -g -std=gnu++17 -fPIE -Wno-invalid-offsetof -o CMakeFiles/MMC.dir/main.cpp.o -c /home/ksripairojn/MMC/main.cpp",
+  "file": "/home/ksripairojn/MMC/main.cpp",
+  "output": "/home/ksripairojn/MMC/build/CMakeFiles/MMC.dir/main.cpp.o"
+},
+{
+  "directory": "/home/ksripairojn/MMC/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/include/highs -g -std=gnu++17 -fPIE -Wno-invalid-offsetof -o CMakeFiles/MMC.dir/CSC.cpp.o -c /home/ksripairojn/MMC/CSC.cpp",
+  "file": "/home/ksripairojn/MMC/CSC.cpp",
+  "output": "/home/ksripairojn/MMC/build/CMakeFiles/MMC.dir/CSC.cpp.o"
+},
+{
+  "directory": "/home/ksripairojn/MMC/build",
+  "command": "/usr/bin/clang++ -isystem /usr/local/include/highs -g -std=gnu++17 -fPIE -Wno-invalid-offsetof -o CMakeFiles/MMC.dir/ovh.cpp.o -c /home/ksripairojn/MMC/ovh.cpp",
+  "file": "/home/ksripairojn/MMC/ovh.cpp",
+  "output": "/home/ksripairojn/MMC/build/CMakeFiles/MMC.dir/ovh.cpp.o"
+}
+]
