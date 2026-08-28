@@ -8,7 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/ksripairojn/MMC/CSC.cpp" "CMakeFiles/MMC.dir/CSC.cpp.o" "gcc" "CMakeFiles/MMC.dir/CSC.cpp.o.d"
   "/home/ksripairojn/MMC/main.cpp" "CMakeFiles/MMC.dir/main.cpp.o" "gcc" "CMakeFiles/MMC.dir/main.cpp.o.d"
+  "/home/ksripairojn/MMC/ovh.cpp" "CMakeFiles/MMC.dir/ovh.cpp.o" "gcc" "CMakeFiles/MMC.dir/ovh.cpp.o.d"
   "" "MMC" "gcc" "CMakeFiles/MMC.dir/link.d"
   )
 

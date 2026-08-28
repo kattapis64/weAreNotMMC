@@ -27,6 +27,7 @@ struct optimizeVariable {
   int treeMonth = 7;      // month (0-11) tree planting starts each year
   int noCropMonth_0 = 2;  // crop field left fallow before this month...
   int noCropMonth_1 = 4;  // ...and after this month, each year
+  float depth = 3;
 };
 
 struct SolveResult {

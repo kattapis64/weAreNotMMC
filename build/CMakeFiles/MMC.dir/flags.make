@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -isystem /usr/local/include/highs
 
-CXX_FLAGS = -std=gnu++17 -fPIE -Wno-invalid-offsetof
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17 -fPIE -O3 -fopenmp -Wno-invalid-offsetof
 

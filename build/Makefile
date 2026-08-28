@@ -129,6 +129,30 @@ MMC/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/build
 .PHONY : MMC/fast
 
+CSC.o: CSC.cpp.o
+.PHONY : CSC.o
+
+# target to build an object file
+CSC.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/CSC.cpp.o
+.PHONY : CSC.cpp.o
+
+CSC.i: CSC.cpp.i
+.PHONY : CSC.i
+
+# target to preprocess a source file
+CSC.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/CSC.cpp.i
+.PHONY : CSC.cpp.i
+
+CSC.s: CSC.cpp.s
+.PHONY : CSC.s
+
+# target to generate assembly for a file
+CSC.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/CSC.cpp.s
+.PHONY : CSC.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -153,6 +177,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+ovh.o: ovh.cpp.o
+.PHONY : ovh.o
+
+# target to build an object file
+ovh.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/ovh.cpp.o
+.PHONY : ovh.cpp.o
+
+ovh.i: ovh.cpp.i
+.PHONY : ovh.i
+
+# target to preprocess a source file
+ovh.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/ovh.cpp.i
+.PHONY : ovh.cpp.i
+
+ovh.s: ovh.cpp.s
+.PHONY : ovh.s
+
+# target to generate assembly for a file
+ovh.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/ovh.cpp.s
+.PHONY : ovh.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +210,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... MMC"
+	@echo "... CSC.o"
+	@echo "... CSC.i"
+	@echo "... CSC.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... ovh.o"
+	@echo "... ovh.i"
+	@echo "... ovh.s"
 .PHONY : help
 
 

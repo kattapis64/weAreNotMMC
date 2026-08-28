@@ -30,9 +30,15 @@ std::vector<double> solveLP(
   model.lp_.row_upper_ = rowUpper;
 
   // Convert dense A -> HiGHS row-wise sparse format.
+  // Same logic as before, just pre-reserving capacity so the push_back loop
+  // below doesn't repeatedly reallocate/copy as it grows (this matrix is
+  // rebuilt from scratch on every call, so that reallocation cost adds up
+  // across thousands of solves).
   std::vector<int> start(1, 0);
   std::vector<int> index;
   std::vector<double> value;
+  index.reserve(static_cast<size_t>(numRows) * 4); // most rows are sparse
+  value.reserve(static_cast<size_t>(numRows) * 4);
   for (int i = 0; i < numRows; ++i) {
     for (int j = 0; j < numCols; ++j) {
       if (A[i][j] != 0.0) {
@@ -49,6 +55,13 @@ std::vector<double> solveLP(
 
   Highs highs;
   highs.setOptionValue("output_flag", false);
+  // These options matter a lot when solving many small/medium LPs back to
+  // back: they cut per-call setup overhead without changing what problem
+  // is solved or the readability of how you build A/bounds/objective.
+  highs.setOptionValue("presolve", "on");     // usually a net win, but cheap to try "off" too if a given model is small
+  highs.setOptionValue("solver", "simplex");  // avoids IPM setup/cleanup cost, which tends to be pure overhead on small LPs solved repeatedly
+  highs.setOptionValue("parallel", "off");    // let YOUR outer loop parallelize (see main.cpp); HiGHS's own internal threading just adds overhead when solving many small problems concurrently
+  highs.setOptionValue("threads", 1);
   if (highs.passModel(model) != HighsStatus::kOk)
     throw std::runtime_error("HiGHS: failed to pass model");
   if (highs.run() != HighsStatus::kOk)

@@ -85,12 +85,12 @@ clean: CMakeFiles/MMC.dir/clean
 CMakeFiles/MMC.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ksripairojn/MMC/build/CMakeFiles --progress-num=1,2 "Built target MMC"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ksripairojn/MMC/build/CMakeFiles --progress-num=1,2,3,4 "Built target MMC"
 .PHONY : CMakeFiles/MMC.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MMC.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ksripairojn/MMC/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ksripairojn/MMC/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/MMC.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ksripairojn/MMC/build/CMakeFiles 0
 .PHONY : CMakeFiles/MMC.dir/rule
@@ -102,7 +102,7 @@ MMC: CMakeFiles/MMC.dir/rule
 # codegen rule for target.
 CMakeFiles/MMC.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMC.dir/build.make CMakeFiles/MMC.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ksripairojn/MMC/build/CMakeFiles --progress-num=1,2 "Finished codegen for target MMC"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ksripairojn/MMC/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target MMC"
 .PHONY : CMakeFiles/MMC.dir/codegen
 
 # clean rule for target.
