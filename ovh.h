@@ -36,7 +36,7 @@ struct SolveResult {
   double scale = 0.0;     // sweep scale that produced this result
   double profit = 0.0;
   vector<double> alloc = vector<double>(N_AREA, 0.0); // m^2 per area
-  double slack_rice = 0.0, slack_tree = 0.0, slack_house = 0.0;
+  double slack_rice = 0.0, slack_tree = 0.0, slack_house = 0.0, slack_crop = 0.0;
   double min_storage = 0.0; // m^3
 };
 
@@ -47,13 +47,13 @@ vector<vector<double>> costMatrix(const optimizeVariable &ov);
 // Solves the land-allocation LP for one set of soft floors (minimum m^2
 // you want for rice/tree/house; shortfalls are allowed but penalized).
 SolveResult solveLp(const optimizeVariable &ov, double floorRice,
-                     double floorTree, double floorHouse);
+                     double floorTree,double floorCrop, double floorHouse);
 
 // Scales a base rice:tree:house floor ratio from 0 up to maxScale and
 // returns the highest-scale, fully-satisfied (zero shortfall) solution
 // with the best profit.
 SolveResult sweepBestScale(const optimizeVariable &ov, double baseRice,
-                            double baseTree, double baseHouse,
+                            double baseTree, double baseCrop,double baseHouse,
                             double maxScale = 5.0, int steps = 51);
 
 } // namespace ovh

@@ -70,7 +70,7 @@ int main() {
 
               // * ใช้ soft constraint เป็นอัตราส่วนเกษตรทฤษฎ๊ใหม่
               ovh::SolveResult best = ovh::sweepBestScale(
-                  ov, /*baseRice=*/300.0, /*baseTree=*/300.0,
+                  ov, /*baseRice=*/300.0, 150,/*baseTree=*/150.0,
                   /*baseHouse=*/100.0, 5, 10);
 
               // Multiple threads may reach here with a candidate "best" at

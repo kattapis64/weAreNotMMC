@@ -114,7 +114,7 @@ vector<vector<double>> costMatrix(const optimizeVariable &ov) {
 }
 
 SolveResult solveLp(const optimizeVariable &ov, double floorRice,
-                    double floorTree, double floorHouse) {
+                    double floorTree, double floorCrop, double floorHouse) {
   SolveResult result;
 
   auto C = costMatrix(ov);
@@ -153,17 +153,22 @@ SolveResult solveLp(const optimizeVariable &ov, double floorRice,
   const int S0 = N_AREA;
   const int SLACK_RICE = S0 + MONTHS;
   const int SLACK_TREE = SLACK_RICE + 1;
-  const int SLACK_HOUSE = SLACK_TREE + 1;
+  const int SLACK_CROP = SLACK_TREE + 1;
+
+  const int SLACK_HOUSE = SLACK_CROP + 1;
+
   const int NVAR = SLACK_HOUSE + 1;
 
   vector<double> objective(NVAR, 0.0);
   for (int a = 0; a < N_AREA; a++)
     objective[a] = totalRevenueByArea[a];
   objective[SLACK_RICE] = -PENALTY;
+  objective[SLACK_CROP] = -PENALTY;
+
   objective[SLACK_TREE] = -PENALTY;
   objective[SLACK_HOUSE] = -PENALTY;
 
-  const int numRows = 2 * MONTHS + 3 + 1 + 1;
+  const int numRows = 2 * MONTHS + 4 + 1 + 1;
   // *Matrix Constraint
   vector<vector<double>> pseudoConstraintMatrix(numRows,
                                                 vector<double>(NVAR, 0.0));
@@ -175,15 +180,9 @@ SolveResult solveLp(const optimizeVariable &ov, double floorRice,
   int row = 0;
   for (int m = 0; m < MONTHS; m++) {
     //* น้ำ run off ทั้งหมด และที่ตกลงบ่อ รวม 6400 m2  จะไหลเข้าบ่อทั้งหมด
-    double rainBase = rainAndEvap[m % 12][1] * FARM_AREA / L_PER_M3;
-    double rainSpread = rainAndEvap[m % 12][0] * FARM_AREA / L_PER_M3;
+    double rain = rainAndEvap[m % 12][1] * FARM_AREA / L_PER_M3;
 
-    double rain = rainBase;
-    if (rainSpread > 0.0) {
-      std::uniform_real_distribution<double> dist(0.0, rainSpread);
-      rain += dist(rng);
-    }
-    double evapCoef = rainAndEvap[m % 12][2] / L_PER_M3;
+    double evapCoef = rainAndEvap[m % 12][3] / L_PER_M3;
     // * ปริมาณน้ำที่เพิ่มขึ้นมาในเดือนนั้น จะต้องไม่มากกว่า ปริมาณน้ำฝนที่ตกลงมา ระเหยออกไปจากบ่อ
     // ลบด้วยปริมาณการใช้งานน้ำrand() % int(rainAndEvap[m % 12][0] * FARM_AREA /
     // L_PER_M3)
@@ -216,9 +215,15 @@ SolveResult solveLp(const optimizeVariable &ov, double floorRice,
   pseudoConstraintMatrix[row][SLACK_RICE] = -1;
   rowUpper[row] = -floorRice;
   row++;
+  // Tree: -Tree - slack_tree <= -floorTree
   pseudoConstraintMatrix[row][1] = -1;
   pseudoConstraintMatrix[row][SLACK_TREE] = -1;
   rowUpper[row] = -floorTree;
+  row++;
+
+  pseudoConstraintMatrix[row][2] = -1;
+  pseudoConstraintMatrix[row][SLACK_CROP] = -1;
+  rowUpper[row] = -floorCrop;
   row++;
   pseudoConstraintMatrix[row][4] = -1;
   pseudoConstraintMatrix[row][SLACK_HOUSE] = -1;
@@ -257,8 +262,10 @@ SolveResult solveLp(const optimizeVariable &ov, double floorRice,
     result.slack_rice = x[SLACK_RICE];
     result.slack_tree = x[SLACK_TREE];
     result.slack_house = x[SLACK_HOUSE];
+    result.slack_crop = x[SLACK_CROP];
+
     result.fully_met =
-        (result.slack_rice + result.slack_tree + result.slack_house) < 1e-6;
+        (result.slack_rice + result.slack_tree + result.slack_house+result.slack_crop) < 1e-6;
 
     double profit = 0.0;
     for (int a = 0; a < N_AREA; a++)
@@ -277,8 +284,8 @@ SolveResult solveLp(const optimizeVariable &ov, double floorRice,
 
 // * ลูปหาสเกลเริ่มต้นที่ดีที่สุด
 SolveResult sweepBestScale(const optimizeVariable &ov, double baseRice,
-                           double baseTree, double baseHouse, double maxScale,
-                           int steps) {
+                           double baseTree, double baseCrop, double baseHouse,
+                           double maxScale, int steps) {
   SolveResult best; // feasible == false until we find a fully-met solution
 
   // std::cout << std::right << std::setw(6) << "scale" << std::setw(9) <<
@@ -289,8 +296,9 @@ SolveResult sweepBestScale(const optimizeVariable &ov, double baseRice,
 
   for (int i = 0; i < steps; i++) {
     double s = (steps > 1) ? maxScale * i / (steps - 1) : 0.0;
-    double fr = s * baseRice, ft = s * baseTree, fh = s * baseHouse;
-    auto r = solveLp(ov, fr, ft, fh);
+    double fr = s * baseRice, ft = s * baseTree, fh = s * baseHouse,
+           fc = s * baseCrop;
+    auto r = solveLp(ov, fr, ft, fc, fh);
     // ? code for output
     // std::cout << std::fixed << std::setprecision(2) << std::setw(6) << s
     //            << std::setprecision(0) << std::setw(9) << fr << std::setw(9)
